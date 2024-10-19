@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Girls Item E-Commerce</string>
+    <string name="searchbar_hint">Search here!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>

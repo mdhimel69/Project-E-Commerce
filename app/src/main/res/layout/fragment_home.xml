@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.HomeFragment">
+
+    <!-- Screen Content goes here. -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:spanCount="2"
+        tools:listitem="@layout/product_grid_layout" />
+    <!-- Your content -->
+
+
+    <!-- AppBarLayout with Cart Icon and SearchBar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:statusBarForeground="?attr/colorSurface"
+        > <!-- Set your red color here -->
+
+        <!-- Layout to arrange SearchBar and Cart Icon horizontally -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/my_primary"
+            android:paddingTop="15dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+            <!-- SearchBar with rounded corners and background -->
+            <com.google.android.material.search.SearchBar
+                android:id="@+id/search_bar"
+                style="@style/RectangularSearchBar"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:hint="@string/searchbar_hint" />
+
+            <ImageView
+                android:id="@+id/cart_icon"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="Cart Icon"
+                android:src="@drawable/cart_white_icon" />
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Expanded Search View when the SearchBar is clicked -->
+    <com.google.android.material.search.SearchView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_anchor="@id/search_bar"
+        />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

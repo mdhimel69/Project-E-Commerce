@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="RectangularSearchBar" parent="Widget.Material3.SearchBar">
+        <item name="shapeAppearanceOverlay">@style/RectangularShape</item>
+    </style>
+
+    <style name="RectangularShape" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">5dp</item> <!-- Set corners to be sharp -->
+    </style>
+
+</resources>
