@@ -1,6 +1,7 @@
 package com.example.girlsiteme_commerce;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -11,6 +12,8 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -19,18 +22,25 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.girlsiteme_commerce.Model.ProductModel;
+import com.example.girlsiteme_commerce.Model.ProductResponse;
 import com.example.girlsiteme_commerce.ViewModel.SharedViewModel;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProductDetailsView extends AppCompatActivity {
 
     TextView dBrand, dPrice, dDiscount, dTitle, dDes, dRating, dDelivery, dReturn;
     Button addToCart_btn;
     ImageView dImage;
-    SharedViewModel sharedViewModel;
+    MaterialToolbar topAppBar;
+    ConstraintLayout main;
     ProductModel product;
 
     @Override
@@ -45,27 +55,42 @@ public class ProductDetailsView extends AppCompatActivity {
         dDelivery = findViewById(R.id.dDelivery);
         dRating = findViewById(R.id.dRating);
         dImage = findViewById(R.id.dImage);
+        main = findViewById(R.id.main);
         dDes = findViewById(R.id.dDes);
         dTitle = findViewById(R.id.dTitle);
         dDiscount = findViewById(R.id.dDiscount);
+        topAppBar = findViewById(R.id.topAppBar);
         addToCart_btn = findViewById(R.id.addToCart_btn);
 
-        int id = getIntent().getIntExtra("productId", 0);
+        main.setVisibility(View.INVISIBLE);
+        //sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
+        int id = getIntent().getIntExtra("productId", 1);
+        Log.d("id of product", ""+id);
 
-        sharedViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
 
-        sharedViewModel.getProductList().observe(this, new Observer<List<ProductModel>>() {
+        //add retrofitCall
+        Call<ProductModel> call = ApiClient.getAPIService().getProductById(id);
+        call.enqueue(new Callback<ProductModel>() {
             @Override
-            public void onChanged(List<ProductModel> productList) {
-                product = sharedViewModel.getProductById(id);
+            public void onResponse(Call<ProductModel> call, Response<ProductModel> response) {
+                product = response.body();
                 if (product != null) {
-                    Toast.makeText(ProductDetailsView.this, "Product not found" + id, Toast.LENGTH_SHORT).show();
+                    main.setVisibility(View.VISIBLE);
                     displayProductDetails(product);
+                    Log.d("found", "Product found with ID: " + id);
                 } else {
-                    Toast.makeText(ProductDetailsView.this, "Product not found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProductDetailsView.this, "Product not found with ID: " + id, Toast.LENGTH_SHORT).show();
+                    Log.d("Not found", "Product not found");
                 }
             }
+
+            @Override
+            public void onFailure(Call<ProductModel> call, Throwable throwable) {
+                Toast.makeText(ProductDetailsView.this, "There is something wrong, please try again! ", Toast.LENGTH_SHORT).show();
+                Log.d("ResponseNot found", ""+throwable);
+            }
         });
+
     }
 
 
@@ -89,9 +114,10 @@ public class ProductDetailsView extends AppCompatActivity {
         }
 
         Picasso.get().load(imageUrl).into(dImage);
-        dDes.setText(product.getDescription());
-        dTitle.setText(product.getTitle());
-        dRating.setText(String.valueOf(product.getRating()));
+        topAppBar.setTitle(product.getCategory());
+        dDes.setText(""+ product.getDescription());
+        dTitle.setText(""+ product.getTitle());
+        dRating.setText(""+ product.getRating());
         dPrice.setText("$" + product.getPrice());
     }
 

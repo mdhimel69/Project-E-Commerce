@@ -23,36 +23,36 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        android:layout_height="wrap_content"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        >
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             tools:context=".ProductDetailsView"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:layout_marginBottom="80dp"
             >
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/detailCardView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:cardCornerRadius="10dp"
                 >
                 <ImageView
                     android:id="@+id/dImage"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scaleType="fitXY"
+                    android:layout_height="250dp"
                     android:src="@drawable/sample_image"
                     />
             </androidx.cardview.widget.CardView>
@@ -88,8 +88,8 @@
                 android:id="@+id/dDiscount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:background="@drawable/discount_sale_textview_bg"
+                android:layout_marginStart="4dp"
                 android:paddingLeft="6dp"
                 android:paddingTop="1dp"
                 android:paddingRight="6dp"
@@ -98,8 +98,7 @@
                 android:textColor="@color/my_icon_color"
                 android:textSize="13sp"
                 android:visibility="visible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.05"
+                app:layout_constraintBottom_toBottomOf="@+id/dPrice"
                 app:layout_constraintStart_toEndOf="@+id/dPrice"
                 app:layout_constraintTop_toTopOf="@+id/dPrice" />
 
@@ -119,16 +118,15 @@
                 android:id="@+id/dRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="200dp"
-                android:layout_marginTop="215dp"
                 android:drawableLeft="@android:drawable/btn_star_big_on"
                 android:fontFamily="@font/inter"
                 android:gravity="center"
                 android:text="4.9"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/dTitle"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/dTitle"
+                />
 
             <TextView
                 android:id="@+id/dDesT"
@@ -151,7 +149,6 @@
                 android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/inter"
-                android:maxLines="2"
                 android:text="Embrace the Seductive Power of..."
                 android:textColor="#565E6C"
                 android:textSize="14sp"
@@ -258,25 +255,23 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <Button
-                android:id="@+id/addToCart_btn"
-                style="@style/Widget.AppCompat.Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:drawableLeft="@drawable/cart_icon"
-                android:fontFamily="@font/inter"
-                android:text="Add to cart"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </RelativeLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/addToCart_btn"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:drawableLeft="@drawable/cart_icon"
+        android:fontFamily="@font/inter"
+        android:text="Add to cart"
+        android:layout_gravity="bottom"
+        />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
